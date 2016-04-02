@@ -1,0 +1,81 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+.page{
+	width: 500px;
+	margin: auto;
+	margin-top: 50px;
+}
+#search{
+	width: 90%;
+	height: 30px;
+	padding-left: 15px;
+	border-radius: 30px;
+}
+#noResult,#newRecordContainer{
+	display: none;
+}
+.popupContainer{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,.7);
+}
+.popup{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 300px;
+	height: 150px;
+	background-color: #fff;
+	padding: 20px;
+	border: 8px solid #9C9AC1;
+
+}
+#newRecord form{
+	width: 180px;
+	margin-left: 115px;
+}
+#newRecord img{
+	width: 100px;
+    height: 135px;
+	margin-top: 10px;
+	float: left;
+}
+#newRecord form label,#newRecord form input[type='text']{
+	padding: 5px 0px;
+	display: block;
+}
+#newRecord form input[type='button']{
+	margin-top: 10px;
+	display: inline-block;
+}
+#noResult
+{
+	padding: 20px 10px;
+}
+#searchResult{
+	list-style: none;
+}
+.listItem {
+	clear: both;
+	height: 50px;
+	margin: 10px;
+}
+.listItem img{
+	width: 50px;
+	float: left;
+	margin-right: 20px;
+}
+.listItem p.name{
+	padding: 5px 0px;
+}
+.listItem p.designation {
+	color: #ccc;
+}

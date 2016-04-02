@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LaunchYard Task </title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="page">
+		<form>
+			<input type="text" value="" id="search"/>
+		</form>
+		<ul id="searchResult">
+			
+		</ul>
+		<p id="noResult">No result found.<button id="addNewRecord">Add new</button></p>
+		<div id="newRecordContainer" class="popupContainer">
+			<div id="newRecord" class="popup">
+				<div>
+					<img src="http://tarunchine.github.io/My-Website/assets/img/logo.png" id="avatar"/>
+					<form>
+						<label for="name">Name</label>
+  						<input type="text" name="firstname" value="" id="name">
+  						<label for="designation">Designation</label>
+  						<input type="text" name="designation" value="" id="designation">
+  						<input type="button" value="Save" id="saveNewRecord">
+  						<input type="button" value="Close" id="close">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="DataService.js"></script>
+	<script type="text/javascript" src="Dispatcher.js"></script>
+	<script type="text/javascript">
+	var view,dispatcher;
+	(function () {
+		view=new SearchView();
+		dispatcher=new Dispatcher(view);	
+		view.init();
+	})();
+	function SearchView(){
+		var search;
+		var _this=this;
+		this.init=function(){
+			/* To initialize all event handling and fetch data */
+			search=document.getElementById('search');
+			search.addEventListener("keyup",this.filterResults);
+			document.getElementById('addNewRecord').addEventListener("click",this.showNewRecordPopup);
+			document.getElementById('saveNewRecord').addEventListener("click",this.saveNewRecord);
+			document.getElementById('close').addEventListener("click",this.closeNewRecordPopup);
+
+
+			dispatcher.fetchSortedData();
+		}
+		this.saveNewRecord=function(){
+			/* to save the new record */
+			var name=document.getElementById('name').value;
+			var designation=document.getElementById('designation').value;
+			var avator=document.getElementById('avatar').getAttribute('src');
+			dispatcher.saveNewRecord(name,designation,avator);
+			search.value="";
+			_this.closeNewRecordPopup();
+
+		}
+		this.closeNewRecordPopup=function(){
+			/* to close the new record popup */
+			document.getElementById('newRecordContainer').style.display='none';
+	
+		}
+		this.showNewRecordPopup=function(){
+			/* to show the new record popup */
+			document.getElementById('newRecordContainer').style.display='block';
+		}
+		this.refreshResults=function (updatedResultList){
+			/* to recreate html based on updated data */	
+			var temp='';
+			for (var i = 0,len=updatedResultList.length; i<len; i++) {
+				temp+='<li><div class="listItem"><img src="'+updatedResultList[i].avatar+'"/><p class="name">'+updatedResultList[i].name+'</p><p class="designation">'+updatedResultList[i].designation+'</p></div></li>';
+			}
+			alert(temp);
+			if(temp == ''){
+				document.getElementById('noResult').style.display='block';
+			}else{
+				document.getElementById('noResult').style.display='none';
+			}
+			document.getElementById("searchResult").innerHTML = temp;	 
+		}
+		this.filterResults=function(){
+			/* filter result based on search query */
+			dispatcher.getFilteredData(search.value);
+		}
+	}
+		
+	</script>
+</body>
+</html>
